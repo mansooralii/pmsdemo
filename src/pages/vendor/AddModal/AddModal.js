@@ -74,7 +74,7 @@ const AddModal = () => {
   }) => {
     try {
       const user_lic = {
-        f_name: firstname,
+   f_name: firstname,
         l_name: lastname,
         email: email,
         mobile_no: mobile_no,
@@ -82,7 +82,7 @@ const AddModal = () => {
         address: address,
         id_proof: id_proof,
         logo: logo,
-        company_name: company_name,
+        company_nam     e: company_name,
         products: products,
         company_lisence_no: company_lisence_no,
         company_lisence_id: company_lisence_id,
@@ -90,7 +90,7 @@ const AddModal = () => {
         
       };
       const response = await axios.post(
-        `http://localhost:8000/licensee`,
+        `http://localhost:3003/vendors`,
         user_lic
       );
       if (response.status === 200) {
@@ -456,11 +456,6 @@ const AddModal = () => {
                       {formik.errors.text}
                     </p>
                   ) : null}
-
-
-
-
-
 
 
 

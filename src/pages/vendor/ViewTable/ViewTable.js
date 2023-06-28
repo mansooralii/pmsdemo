@@ -20,7 +20,7 @@ const ViewTable = () => {
   useEffect(() => {
     async function fetchData() {
       console.log('hai')
-      const response = await fetch('http://localhost:8000/vender')
+      const response = await fetch('http://localhost:3003/vendors')
       const json = await response.json()
       setData(json)
       setFilterData(json)
@@ -103,7 +103,7 @@ const ViewTable = () => {
       name: 'NAME',
       cell: (row) => (
         <div>
-          {row.f_name} {row.l_name}
+          {row.First_name} {row.Last_name}
         </div>
       ),
       sortable: true,
@@ -115,17 +115,47 @@ const ViewTable = () => {
     },
     {
       name: 'PHONE',
-      selector: 'mobile_no',
+      selector: 'Phone',
       sortable: true,
     },
     {
-      name: 'ROLE',
-      selector: 'role_opt',
+      name: 'ALTENATIVE NO',
+      selector: 'alternative_no',
       sortable: true,
     },
     {
-      name: 'JOIN DATE',
-      selector: 'createdAt',
+      name: 'ADDRESS',
+      selector: 'Address',
+      sortable: true,
+    },
+    {
+      name: 'LOGO',
+      selector: 'Logo',
+      sortable: true,
+    },
+    {
+      name: 'COMPANY NAME',
+      selector: 'Company_Name',
+      sortable: true,
+    },
+    {
+      name: 'PRODUCT',
+      selector: 'Products',
+      sortable: true,
+    },
+    {
+      name: 'LISENCE NUMBER',
+      selector: 'Company_Lisence_Number',
+      sortable: true,
+    },
+    {
+      name: 'LISENCE ID',
+      selector: 'Company_Lisence_Id',
+      sortable: true,
+    },
+    {
+      name: 'PRODUCT CATEGORY',
+      selector: 'Product_Category',
       sortable: true,
     },
     {

@@ -26,7 +26,7 @@ const ViewModal = ({ viewclose, view, id }) => {
   const showDetail = async (details) => {
     console.log('hai' + details)
     try {
-      const response = await axios.get(`http://localhost:8000/licensee/${details}`)
+      const response = await axios.get(`http://localhost:3003/vendors/${details}`)
       const data = response.data
       console.log('response' + response.data.f_name)
       setUser(data)
