@@ -20,7 +20,7 @@ const DeleteData = ({ deleteclose,dlt,id }) => {
     const handleDelete = async (remove) => {
       console.log(remove);
         try {
-          const response = await axios.delete(`http://localhost:8000/licensee/${remove}`);
+          const response = await axios.delete(`http://localhost:3003/vendors/${remove}`);
           if(response.status===200){
             toast.success('User Successfully Deleted !', {
                 toastId: 'success',
@@ -50,6 +50,7 @@ const DeleteData = ({ deleteclose,dlt,id }) => {
           </Button>
           <Button variant="success" className='text-white' onClick={()=>{
             handleDelete(remove);
+            location.reload(true)
             handleModalClose();
           }}>
             Yes

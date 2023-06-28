@@ -28,7 +28,7 @@ const UpdateModal = ({ updateclose, update, id }) => {
   const showDetail = async (details) => {
     console.log('hai' + details)
     try {
-      const response = await axios.get(`http://localhost:8000/licensee/${details}`)
+      const response = await axios.get(`http://localhost:3003/vendors/${details}`)
       console.log('response' + response.data.f_name)
       const data = response.data
       setUser(data)
@@ -69,7 +69,7 @@ const UpdateModal = ({ updateclose, update, id }) => {
         password: password,
         status: status,
       }
-      const response = await axios.patch(`http://localhost:8000/licensee/${_id}`, user_1)
+      const response = await axios.patch(`http://localhost:3003/vendors/${_id}`, user_1)
       if (response.status === 200) {
         toast.success('User Successfully Updated !', {
           toastId: 'success',
@@ -94,20 +94,20 @@ const UpdateModal = ({ updateclose, update, id }) => {
                   <Form.Label className="ms-1">First name</Form.Label>
                   <Form.Control
                     type="text"
-                    name="f_name"
-                    value={user.f_name}
+                    name="First name"
+                    value={user.First_name}
                     onChange={handleChange}
                   />
                   <Form.Label className="ms-1 mt-2">Last name</Form.Label>
                   <Form.Control
                     type="text"
-                    name="l_name"
-                    value={user.l_name}
+                    name="Last name"
+                    value={user.Last_name}
                     onChange={handleChange}
                   />
                   <Form.Label className="ms-1 mt-2">Phone</Form.Label>
                   <Form.Control
-                    type="text"
+                    type="number"
                     name="mobile_no"
                     value={user.mobile_no}
                     onChange={handleChange}

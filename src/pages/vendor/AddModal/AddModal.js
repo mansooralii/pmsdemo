@@ -21,7 +21,7 @@ const AddModal = () => {
   const initialValues = {
     firstname: "",
     lastname: "",
-    mobile_no: "",
+    phone: "",
     alternative_no: "",
     email: "",
     address: "",
@@ -60,7 +60,7 @@ const AddModal = () => {
     firstname,
     lastname,
     email,
-    mobile_no,
+    phone,
     alternative_no,
     address,
     id_proof,
@@ -74,15 +74,15 @@ const AddModal = () => {
   }) => {
     try {
       const user_lic = {
-   f_name: firstname,
-        l_name: lastname,
+        firstname: firstname,
+        lastname: lastname,
         email: email,
-        mobile_no: mobile_no,
+        phone: phone,
         alternative_no: alternative_no,
         address: address,
         id_proof: id_proof,
         logo: logo,
-        company_nam     e: company_name,
+        company_name: company_name,
         products: products,
         company_lisence_no: company_lisence_no,
         company_lisence_id: company_lisence_id,
@@ -150,7 +150,7 @@ const AddModal = () => {
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
-                  {formik.errors.firstname && formik.touched.firstname ? (
+                  {formik.errors.text && formik.touched.text ? (
                     <p
                       style={{
                         fontSize: "10px",
@@ -160,7 +160,7 @@ const AddModal = () => {
                       }}
                       className="form-error"
                     >
-                      {formik.errors.firstname}
+                      {formik.errors.text}
                     </p>
                   ) : null}
                   <Form.Label className="ms-1 mt-1">Last name</Form.Label>
@@ -179,13 +179,13 @@ const AddModal = () => {
                     type="number"
                     placeholder=""
                     defaultValue=""
-                    name="mobile_no"
+                    name="phone"
                     autoComplete="off"
-                    value={formik.values.mobile_no}
+                    value={formik.values.phone}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
-                  {formik.errors.mobile_no && formik.touched.mobile_no ? (
+                  {formik.errors.number && formik.touched.number ? (
                     <p
                       style={{
                         fontSize: "10px",
@@ -195,13 +195,13 @@ const AddModal = () => {
                       }}
                       className="form-error"
                     >
-                      {formik.errors.mobile_no}
+                      {formik.errors.number}
                     </p>
                   ) : null}
                   <Form.Label className="ms-1 mt-1">Email</Form.Label>
                   <Form.Control
                     required
-                    type="text"
+                    type="email"
                     placeholder=""
                     defaultValue=""
                     name="email"
@@ -223,15 +223,15 @@ const AddModal = () => {
                       {formik.errors.email}
                     </p>
                   ) : null}
-                  <Form.Label className="ms-1 mt-1">alternative_no</Form.Label>
+                  <Form.Label className="ms-1 mt-1">Alternative No</Form.Label>
                   <Form.Control
                     required
                     type="number"
                     placeholder=""
                     defaultValue=""
-                    name="alternative number"
+                    name="alternative_no"
                     autoComplete="off"
-                    value={formik.values.number}
+                    value={formik.values.alternative_no}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
@@ -257,7 +257,7 @@ const AddModal = () => {
                     defaultValue=""
                     name="address"
                     autoComplete="off"
-                    value={formik.values.text}
+                    value={formik.values.address}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
@@ -287,7 +287,7 @@ const AddModal = () => {
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
-                  {formik.errors.id_proof && formik.touched.id_proof ? (
+                  {formik.errors.text && formik.touched.text ? (
                     <p
                       style={{
                         fontSize: "10px",
@@ -297,23 +297,23 @@ const AddModal = () => {
                       }}
                       className="form-error"
                     >
-                      {formik.errors.id_proof}
+                      {formik.errors.text}
                     </p>
                   ) : null}
 
                   <Form.Label className="ms-1 mt-1">Logo</Form.Label>
                   <Form.Control
                     required
-                    type="src"
+                    type="text"
                     placeholder=""
                     defaultValue=""
-                    name="image"
+                    name="Logo"
                     autoComplete="off"
                     value={formik.values.src}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
-                  {formik.errors.src && formik.touched.src ? (
+                  {formik.errors.text && formik.touched.text ? (
                     <p
                       style={{
                         fontSize: "10px",
@@ -323,7 +323,7 @@ const AddModal = () => {
                       }}
                       className="form-error"
                     >
-                      {formik.errors.src}
+                      {formik.errors.text}
                     </p>
                   ) : null}
 
@@ -335,7 +335,7 @@ const AddModal = () => {
                     defaultValue=""
                     name="Company_name"
                     autoComplete="off"
-                    value={formik.values.text}
+                    value={formik.values.Company_name}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
@@ -361,7 +361,7 @@ const AddModal = () => {
                     defaultValue=""
                     name="products"
                     autoComplete="off"
-                    value={formik.values.text}
+                    value={formik.values.products}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />

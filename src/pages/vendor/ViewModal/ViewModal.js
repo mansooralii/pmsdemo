@@ -57,19 +57,31 @@ const ViewModal = ({ viewclose, view, id }) => {
             <Row>
               <Col lg={12}>
                 <Form.Label className="ms-1 mt-2">First name</Form.Label>
-                <Form.Control disabled type="text" value={user.f_name} />
+                <Form.Control disabled type="text" value={user.First_name} />
                 <Form.Label className="ms-1 mt-2">Last name</Form.Label>
-                <Form.Control disabled type="text" value={user.l_name} />
+                <Form.Control disabled type="text" value={user.Last_name} />
                 <Form.Label className="ms-1 mt-2">Email</Form.Label>
                 <Form.Control disabled type="text" value={user.email} />
-                <Form.Label className="ms-1 mt-2">Password</Form.Label>
-                <Form.Control disabled type="text" value={user.password} />
                 <Form.Label className="ms-1 mt-2">Phone</Form.Label>
-                <Form.Control disabled type="text" value={user.mobile_no} />
-                <Form.Label className="ms-1 mt-2">Role</Form.Label>
-                <Form.Control disabled type="text" value={user.role_opt} />
-                <Form.Label className="ms-1 mt-2">Join Date</Form.Label>
-                <Form.Control disabled type="text" value={user.createdAt} />
+                <Form.Control disabled type="text" value={user.Phone} />
+                <Form.Label className="ms-1 mt-2">Alternative No</Form.Label>
+                <Form.Control disabled type="text" value={user.alternative_no} />
+                <Form.Label className="ms-1 mt-2">Address</Form.Label>
+                <Form.Control disabled type="text" value={user.Address} />
+                <Form.Label className="ms-1 mt-2">Id Proof</Form.Label>
+                <Form.Control disabled type="text" value={user.Id_Proof} />
+                <Form.Label className="ms-1 mt-2">Logo</Form.Label>
+                <Form.Control disabled type="text" value={user.Logo} />
+                <Form.Label className="ms-1 mt-2">Company Name</Form.Label>
+                <Form.Control disabled type="text" value={user.Company_Name} />
+                <Form.Label className="ms-1 mt-2">Products</Form.Label>
+                <Form.Control disabled type="text" value={user.Products} />
+                <Form.Label className="ms-1 mt-2">Company_Lisence_Number</Form.Label>
+                <Form.Control disabled type="text" value={user.Company_Lisence_Number} />
+                <Form.Label className="ms-1 mt-2">Company_Lisence_Id</Form.Label>
+                <Form.Control disabled type="text" value={user.Company_Lisence_Id} />
+                <Form.Label className="ms-1 mt-2">Product Category</Form.Label>
+                <Form.Control disabled type="text" value={user.Product_Category} />
                 <Form.Label className="ms-1 mt-2">Status</Form.Label>
                 <Form.Control disabled type="text" value={user.status} />
               </Col>
