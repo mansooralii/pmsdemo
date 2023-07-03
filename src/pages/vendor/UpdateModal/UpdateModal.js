@@ -1,85 +1,63 @@
-import React, { useState, useEffect } from 'react'
-import { Modal, Button, Container, Row, Col, Form } from 'react-bootstrap'
-import { toast } from 'react-toastify'
-import axios from 'axios'
+import React, { useState, useEffect } from 'react';
+import { Modal, Button, Container, Row, Col, Form } from 'react-bootstrap';
+import { toast } from 'react-toastify';
+import axios from 'axios';
 
 const UpdateModal = ({ updateclose, update, id }) => {
-  // ..................Modal Controlls......................//
+  const [show, setShow] = useState(update);
 
-  const [show, setShow] = useState(update)
   useEffect(() => {
-    setShow(update)
-  }, [update])
+    setShow(update);
+  }, [update]);
+
   const handleModalClose = () => {
-    updateclose()
-    setShow(false)
-  }
+    updateclose();
+    setShow(false);
+    
+  };
 
-  // ..................Modal Controlls Ends......................//
+  const [user, setUser] = useState({});
 
-  //  .................Fetching Employee One.................//
-
-  const [details, setDetails] = useState(id)
   useEffect(() => {
-    setDetails(id)
-  }, [id])
+    const showDetail = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3003/vendors/${id}`);
+        const data = response.data;
+        setUser(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
-  const [user, setUser] = useState({})
-  const showDetail = async (details) => {
-    console.log('hai' + details)
-    try {
-      const response = await axios.get(`http://localhost:3003/vendors/${details}`)
-      console.log('response' + response.data.f_name)
-      const data = response.data
-      setUser(data)
-    } catch (error) {
-      console.error(error)
-    }
-  }
-  useEffect(() => {
-    showDetail(details)
-  }, [details])
+    showDetail();
+    
+  }, [id]);
 
-  //  .................Fetching Employee One Ends.................//
-
-  // const [values, setValues] = useState({
-  //   id:row._id,
-  //   f_name:row.f_name,
-  //   l_name:row.l_name,
-  //   mobile_no:row.mobile_no,
-  //   password:row.password,
-  //   status:row.status
-  // });
-
-  function handleChange(event) {
-    const { name, value } = event.target
+  const handleChange = (event) => {
+    const { name, value } = event.target;
     setUser((prevUser) => ({
       ...prevUser,
       [name]: value,
-    }))
-  }
+    }));
+    
+  };
 
   const updateUser = async (user) => {
-    const { _id, f_name, l_name, mobile_no, password, status } = user
     try {
-      const user_1 = {
-        f_name: f_name,
-        l_name: l_name,
-        mobile_no: mobile_no,
-        password: password,
-        status: status,
-      }
-      const response = await axios.patch(`http://localhost:3003/vendors/${_id}`, user_1)
+      const response = await axios.patch(`http://localhost:3003/vendors/${user._id}`, user);
       if (response.status === 200) {
-        toast.success('User Successfully Updated !', {
+        toast.success('User Successfully Updated!', {
           toastId: 'success',
           position: toast.POSITION.TOP_RIGHT,
-        })
+          
+        });
       }
     } catch (error) {
-      alert(error)
+      console.error(error);
     }
-  }
+    location.reload();
+  };
+
   return (
     <>
       <Modal show={show} backdrop="static" centered onHide={handleModalClose} animation={false}>
@@ -94,50 +72,107 @@ const UpdateModal = ({ updateclose, update, id }) => {
                   <Form.Label className="ms-1">First name</Form.Label>
                   <Form.Control
                     type="text"
-                    name="First name"
-                    value={user.First_name}
+                    name="First_name"
+                    value={user.First_name || ''}
                     onChange={handleChange}
                   />
                   <Form.Label className="ms-1 mt-2">Last name</Form.Label>
                   <Form.Control
                     type="text"
-                    name="Last name"
-                    value={user.Last_name}
+                    name="Last_name"
+                    value={user.Last_name || ''}
                     onChange={handleChange}
                   />
                   <Form.Label className="ms-1 mt-2">Phone</Form.Label>
                   <Form.Control
                     type="number"
-                    name="mobile_no"
-                    value={user.mobile_no}
+                    name="Phone"
+                    value={user.Phone || ''}
                     onChange={handleChange}
                   />
-                  <Form.Label className="ms-1 mt-2">Password</Form.Label>
+                  <Form.Label className="ms-1 mt-2">Email</Form.Label>
+                  <Form.Control
+                    type="email"
+                    name="email"
+                    value={user.email || ''}
+                    onChange={handleChange}
+                  /> <Form.Label className="ms-1 mt-2">Alternative No</Form.Label>
                   <Form.Control
                     type="text"
-                    name="password"
-                    value={user.password}
+                    name="alternative_no"
+                    value={user.alternative_no || ''}
+                    onChange={handleChange}
+                  />
+                  <Form.Label className="ms-1 mt-2">Address</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="Address"
+                    value={user.Address || ''}
+                    onChange={handleChange}
+                  />
+                  <Form.Label className="ms-1 mt-2">Id Proof</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="Id_Proof"
+                    value={user.Id_Proof || ''}
+                    onChange={handleChange}
+                  />
+                  <Form.Label className="ms-1 mt-2">Logo</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="Logo"
+                    value={user.Logo || ''}
+                    onChange={handleChange}
+                  />
+                  <Form.Label className="ms-1 mt-2">Company_Name</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="Company_Name"
+                    value={user.Company_Name || ''}
+                    onChange={handleChange}
+                  />
+                  <Form.Label className="ms-1 mt-2">Products</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="Products"
+                    value={user.Products || ''}
+                    onChange={handleChange}
+                  />
+                  <Form.Label className="ms-1 mt-2">Company_Lisence_Number</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="Company_Lisence_Number"
+                    value={user.Company_Lisence_Number || ''}
+                    onChange={handleChange}
+                  />
+                  <Form.Label className="ms-1 mt-2">Company Lisence_Id</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="Company_Lisence_Id"
+                    value={user.Company_Lisence_Id || ''}
+                    onChange={handleChange}
+                  />
+                  <Form.Label className="ms-1 mt-2">Product Category</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="Product_Category"
+                    value={user.Product_Category || ''}
                     onChange={handleChange}
                   />
                   <Form.Label className="ms-1 mt-2">Status</Form.Label>
                   <Form.Select
                     aria-label="Default select example"
                     name="status"
+                    value={user.status || ''}
                     onChange={handleChange}
                   >
                     <option style={{ backgroundColor: '#40536e' }} value="" className=" text-white">
                       {user.status}
                     </option>
-                    <option
-                      className={user.status === 'Active' ? 'd-none' : 'd-block'}
-                      value="Active"
-                    >
+                    <option className={user.status === 'Active' ? 'd-none' : 'd-block'} value="Active">
                       Active
                     </option>
-                    <option
-                      className={user.status === 'Inactive' ? 'd-none' : 'd-block'}
-                      value="Inactive"
-                    >
+                    <option className={user.status === 'Inactive' ? 'd-none' : 'd-block'} value="Inactive">
                       Inactive
                     </option>
                   </Form.Select>
@@ -154,8 +189,8 @@ const UpdateModal = ({ updateclose, update, id }) => {
             className="text-white"
             variant="success"
             onClick={() => {
-              handleModalClose()
-              updateUser(user)
+              handleModalClose();
+              updateUser(user);
             }}
           >
             Save
@@ -163,7 +198,7 @@ const UpdateModal = ({ updateclose, update, id }) => {
         </Modal.Footer>
       </Modal>
     </>
-  )
-}
+  );
+};
 
-export default UpdateModal
+export default UpdateModal;

@@ -1,110 +1,110 @@
-import React, { useState, useEffect } from "react";
-import { Modal, Button, Container, Row, Col, Form } from "react-bootstrap";
-import { GoPlus } from "react-icons/go";
-import { useFormik } from "formik";
-import { ValidSchema } from "../Validation/Validation";
-import axios from "axios";
-import { toast } from "react-toastify";
-import "./AddModal.css";
+import React, { useState, useEffect } from 'react'
+import { Modal, Button, Container, Row, Col, Form } from 'react-bootstrap'
+import { GoPlus } from 'react-icons/go'
+import { useFormik } from 'formik'
+import { ValidSchema } from '../Validation/Validation'
+import axios from 'axios'
+import { toast } from 'react-toastify'
+import './AddModal.css'
 
 const AddModal = () => {
   // .............Modal Controls..................//
 
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const [show, setShow] = useState(false)
+  const handleClose = () => setShow(false)
+  const handleShow = () => setShow(true)
 
   // .............Modal Controls End..................//
 
   // ...........Validation...............//
 
   const initialValues = {
-    firstname: "",
-    lastname: "",
-    phone: "",
-    alternative_no: "",
-    email: "",
-    address: "",
-    id_proof: "",
-    logo: "",
-    company_name: "",
-    products: "",
-    company_licens_no: "",
-    company_licens_id: "",
-    product_category: "",
-
-  };
+    First_name: '',
+    Last_name: '',
+    Phone: '',
+    alternative_no: '',
+    email: '',
+    Address: '',
+    Id_Proof: '',
+    Logo: '',
+    Company_Name: '',
+    Products: '',
+    Company_Lisence_Number: '',
+    Company_Lisence_Id: '',
+    Product_Category: '',
+  }
   const handleReset = (formik) => {
-    formik.resetForm();
+    formik.resetForm()
   }
   const formik = useFormik({
     initialValues: initialValues,
     validationSchema: ValidSchema,
     onSubmit: async (values, { resetForm }) => {
-      console.log(values.firstname);
       try {
-        create(values);
-        resetForm();
-        handleClose();
+        create(values)
+        resetForm()
+        handleClose()
+        location.reload();
       } catch (error) {
-        console.error(error);
+        console.error(error)
       }
     },
-    
-  });
+  })
   // ...........Validation Ends..........//
 
   // ...............Adding User Here.......................//
 
   const create = async ({
-    firstname,
-    lastname,
+    First_name,
+    Last_name,
     email,
-    phone,
+    Phone,
     alternative_no,
-    address,
-    id_proof,
-    logo,
-    company_name,
-    products,
-    company_lisence_no,
-    company_lisence_id,
-    product_category,
-
+    Address,
+    Id_Proof,
+    Logo,
+    Company_Name,
+    Products,
+    Company_Lisence_Number,
+    Company_Lisence_Id,
+    Product_Category,
   }) => {
-    try {
-      const user_lic = {
-        firstname: firstname,
-        lastname: lastname,
-        email: email,
-        phone: phone,
-        alternative_no: alternative_no,
-        address: address,
-        id_proof: id_proof,
-        logo: logo,
-        company_name: company_name,
-        products: products,
-        company_lisence_no: company_lisence_no,
-        company_lisence_id: company_lisence_id,
-        product_category:  product_category,
-        
-      };
-      const response = await axios.post(
-        `http://localhost:3003/vendors`,
-        user_lic
-      );
-      if (response.status === 200) {
-        toast.success("User Successfully Created !", {
-          toastId: "success",
-          position: toast.POSITION.TOP_RIGHT,
-          autoClose: 1000,
-        });
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+    if (First_name == '' && email == '') {
+      console.log('enter all detailes')
+    } else {
+      try {
+        const user_lic = {
+          First_name: First_name,
+          Last_name: Last_name,
+          email: email,
+          Phone: Phone,
+          alternative_no: alternative_no,
+          Address: Address,
+          Id_Proof: Id_Proof,
+          Logo: Logo,
+          Company_Name: Company_Name,
+          Products: Products,
+          Company_Lisence_Number: Company_Lisence_Number,
+          Company_Lisence_Id: Company_Lisence_Id,
+          Product_Category: Product_Category,
+        }
 
+        console.log(formik.values)
+
+        const response = await axios.post(`http://localhost:3003/vendors`, user_lic)
+
+        if (response.status === 200) {
+          toast.success('User Successfully Created !', {
+            toastId: 'success',
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: 1000,
+          })
+        }
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  }
 
   // ...............Adding User Ends Here.......................//
   return (
@@ -117,46 +117,34 @@ const AddModal = () => {
         <GoPlus /> ADD
       </Button>
 
-      <Modal
-        show={show}
-        backdrop="static"
-        centered
-        onHide={handleClose}
-        animation={false}
-      >
-        <Modal.Header
-          closeButton
-          style={{ backgroundColor: "#40536e", color: "white" }}
-        >
+      <Modal show={show} backdrop="static" centered onHide={handleClose} animation={false}>
+        <Modal.Header closeButton style={{ backgroundColor: '#40536e', color: 'white' }}>
           <Modal.Title>Add Vendor</Modal.Title>
         </Modal.Header>
         <Container>
           <Row>
             <Col lg={12}>
-              <Form  onSubmit={formik.handleSubmit} action="">
-                <Modal.Body
-                  style={{ height: "310px" }}
-                  className="overflow-auto"
-                >
+              <Form onSubmit={formik.handleSubmit} action="">
+                <Modal.Body style={{ height: '310px' }} className="overflow-auto">
                   <Form.Label className="ms-1 ">First name</Form.Label>
                   <Form.Control
                     required
                     type="text"
                     placeholder=""
                     defaultValue=""
-                    name="firstname"
+                    name="First_name"
                     autoComplete="off"
-                    value={formik.values.firstname}
+                    value={formik.values.First_name}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
-                  {formik.errors.text && formik.touched.text ? (
+                  {formik.errors.First_name && formik.touched.First_name ? (
                     <p
                       style={{
-                        fontSize: "10px",
-                        color: "red",
-                        marginTop: "1px",
-                        marginLeft: "2%",
+                        fontSize: '10px',
+                        color: 'red',
+                        marginTop: '1px',
+                        marginLeft: '2%',
                       }}
                       className="form-error"
                     >
@@ -169,29 +157,31 @@ const AddModal = () => {
                     type="text"
                     placeholder=""
                     defaultValue=""
-                    name="lastname"
-                    value={formik.values.lastname}
+                    name="Last_name"
+                    value={formik.values.Last_name}
                     onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
                   />
+
                   <Form.Label className="ms-1 mt-1">Phone</Form.Label>
                   <Form.Control
                     required
                     type="number"
                     placeholder=""
                     defaultValue=""
-                    name="phone"
+                    name="Phone"
                     autoComplete="off"
-                    value={formik.values.phone}
+                    value={formik.values.Phone}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
                   {formik.errors.number && formik.touched.number ? (
                     <p
                       style={{
-                        fontSize: "10px",
-                        color: "red",
-                        marginTop: "1px",
-                        marginLeft: "2%",
+                        fontSize: '10px',
+                        color: 'red',
+                        marginTop: '1px',
+                        marginLeft: '2%',
                       }}
                       className="form-error"
                     >
@@ -213,10 +203,10 @@ const AddModal = () => {
                   {formik.errors.email && formik.touched.email ? (
                     <p
                       style={{
-                        fontSize: "10px",
-                        color: "red",
-                        marginTop: "1px",
-                        marginLeft: "2%",
+                        fontSize: '10px',
+                        color: 'red',
+                        marginTop: '1px',
+                        marginLeft: '2%',
                       }}
                       className="form-error"
                     >
@@ -238,10 +228,10 @@ const AddModal = () => {
                   {formik.errors.number && formik.touched.number ? (
                     <p
                       style={{
-                        fontSize: "10px",
-                        color: "red",
-                        marginTop: "1px",
-                        marginLeft: "2%",
+                        fontSize: '10px',
+                        color: 'red',
+                        marginTop: '1px',
+                        marginLeft: '2%',
                       }}
                       className="form-error"
                     >
@@ -255,19 +245,19 @@ const AddModal = () => {
                     type="text"
                     placeholder=""
                     defaultValue=""
-                    name="address"
+                    name="Address"
                     autoComplete="off"
-                    value={formik.values.address}
+                    value={formik.values.Address}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
                   {formik.errors.text && formik.touched.text ? (
                     <p
                       style={{
-                        fontSize: "10px",
-                        color: "red",
-                        marginTop: "1px",
-                        marginLeft: "2%",
+                        fontSize: '10px',
+                        color: 'red',
+                        marginTop: '1px',
+                        marginLeft: '2%',
                       }}
                       className="form-error"
                     >
@@ -281,19 +271,19 @@ const AddModal = () => {
                     type="text"
                     placeholder=""
                     defaultValue=""
-                    name="id_proof"
+                    name="Id_Proof"
                     autoComplete="off"
-                    value={formik.values.id_proof}
+                    value={formik.values.Id_Proof}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
                   {formik.errors.text && formik.touched.text ? (
                     <p
                       style={{
-                        fontSize: "10px",
-                        color: "red",
-                        marginTop: "1px",
-                        marginLeft: "2%",
+                        fontSize: '10px',
+                        color: 'red',
+                        marginTop: '1px',
+                        marginLeft: '2%',
                       }}
                       className="form-error"
                     >
@@ -309,17 +299,17 @@ const AddModal = () => {
                     defaultValue=""
                     name="Logo"
                     autoComplete="off"
-                    value={formik.values.src}
+                    value={formik.values.Logo}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
                   {formik.errors.text && formik.touched.text ? (
                     <p
                       style={{
-                        fontSize: "10px",
-                        color: "red",
-                        marginTop: "1px",
-                        marginLeft: "2%",
+                        fontSize: '10px',
+                        color: 'red',
+                        marginTop: '1px',
+                        marginLeft: '2%',
                       }}
                       className="form-error"
                     >
@@ -333,19 +323,19 @@ const AddModal = () => {
                     type="text"
                     placeholder=""
                     defaultValue=""
-                    name="Company_name"
+                    name="Company_Name"
                     autoComplete="off"
-                    value={formik.values.Company_name}
+                    value={formik.values.Company_Name}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
                   {formik.errors.text && formik.touched.text ? (
                     <p
                       style={{
-                        fontSize: "10px",
-                        color: "red",
-                        marginTop: "1px",
-                        marginLeft: "2%",
+                        fontSize: '10px',
+                        color: 'red',
+                        marginTop: '1px',
+                        marginLeft: '2%',
                       }}
                       className="form-error"
                     >
@@ -359,19 +349,19 @@ const AddModal = () => {
                     type="textr"
                     placeholder=""
                     defaultValue=""
-                    name="products"
+                    name="Products"
                     autoComplete="off"
-                    value={formik.values.products}
+                    value={formik.values.Products}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
                   {formik.errors.text && formik.touched.text ? (
                     <p
                       style={{
-                        fontSize: "10px",
-                        color: "red",
-                        marginTop: "1px",
-                        marginLeft: "2%",
+                        fontSize: '10px',
+                        color: 'red',
+                        marginTop: '1px',
+                        marginLeft: '2%',
                       }}
                       className="form-error"
                     >
@@ -385,19 +375,19 @@ const AddModal = () => {
                     type="text"
                     placeholder=""
                     defaultValue=""
-                    name="companyu_lisence_no"
+                    name="Company_Lisence_Number"
                     autoComplete="off"
-                    value={formik.values.text}
+                    value={formik.values.Company_Lisence_Number}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
                   {formik.errors.text && formik.touched.text ? (
                     <p
                       style={{
-                        fontSize: "10px",
-                        color: "red",
-                        marginTop: "1px",
-                        marginLeft: "2%",
+                        fontSize: '10px',
+                        color: 'red',
+                        marginTop: '1px',
+                        marginLeft: '2%',
                       }}
                       className="form-error"
                     >
@@ -411,19 +401,19 @@ const AddModal = () => {
                     type="text"
                     placeholder=""
                     defaultValue=""
-                    name="company_lisence_id"
+                    name="Company_Lisence_Id"
                     autoComplete="off"
-                    value={formik.values.text}
+                    value={formik.values.Company_Lisence_Id}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
                   {formik.errors.text && formik.touched.text ? (
                     <p
                       style={{
-                        fontSize: "10px",
-                        color: "red",
-                        marginTop: "1px",
-                        marginLeft: "2%",
+                        fontSize: '10px',
+                        color: 'red',
+                        marginTop: '1px',
+                        marginLeft: '2%',
                       }}
                       className="form-error"
                     >
@@ -437,28 +427,25 @@ const AddModal = () => {
                     type="text"
                     placeholder=""
                     defaultValue=""
-                    name="product_category"
+                    name="Product_Category"
                     autoComplete="off"
-                    value={formik.values.text}
+                    value={formik.values.Product_Category}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                   />
                   {formik.errors.text && formik.touched.text ? (
                     <p
                       style={{
-                        fontSize: "10px",
-                        color: "red",
-                        marginTop: "1px",
-                        marginLeft: "2%",
+                        fontSize: '10px',
+                        color: 'red',
+                        marginTop: '1px',
+                        marginLeft: '2%',
                       }}
                       className="form-error"
                     >
                       {formik.errors.text}
                     </p>
                   ) : null}
-
-
-
                 </Modal.Body>
                 <Modal.Footer className="positoin-fixed">
                   <Button
@@ -467,7 +454,7 @@ const AddModal = () => {
                     variant="danger"
                     onClick={() => {
                       handleReset(formik)
-                      handleClose();
+                      handleClose()
                     }}
                   >
                     Close
@@ -475,7 +462,8 @@ const AddModal = () => {
                   <Button
                     className="text-white"
                     onClick={() => {
-                      formik.isValid ? create(formik.values) : alert(formik.errors);
+                      formik.isValid ? create(formik.values) : alert(formik.errors)
+                      console.log(formik.values)
                     }}
                     type="submit"
                     variant="success ms-2"
@@ -489,7 +477,7 @@ const AddModal = () => {
         </Container>
       </Modal>
     </>
-  );
-};
+  )
+}
 
-export default AddModal;
+export default AddModal

@@ -129,6 +129,11 @@ const ViewTable = () => {
       sortable: true,
     },
     {
+      name: 'ID PROOF',
+      selector: 'Id_Proof',
+      sortable: true,
+    },
+    {
       name: 'LOGO',
       selector: 'Logo',
       sortable: true,
