@@ -89,7 +89,7 @@ const ViewModal = ({ viewclose, view, id }) => {
           </Container>
         </Modal.Body>
         <Modal.Footer>
-          <Button className='text-white' variant="danger" onClick={handleModalClose}>
+          <Button className="text-white" variant="danger" onClick={handleModalClose}>
             Close
           </Button>
         </Modal.Footer>
