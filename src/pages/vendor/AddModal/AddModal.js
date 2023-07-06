@@ -1,55 +1,57 @@
-import React, { useState, useEffect } from 'react'
-import { Modal, Button, Container, Row, Col, Form } from 'react-bootstrap'
-import { GoPlus } from 'react-icons/go'
-import { useFormik } from 'formik'
-import { ValidSchema } from '../Validation/Validation'
-import axios from 'axios'
-import { toast } from 'react-toastify'
-import './AddModal.css'
+import React, { useState, useEffect } from "react";
+import { Modal, Button, Container, Row, Col, Form } from "react-bootstrap";
+import { GoPlus } from "react-icons/go";
+import { useFormik } from "formik";
+import { ValidSchema } from "../Validation/Validation";
+import axios from "axios";
+import { toast } from "react-toastify";
+import "./AddModal.css";
+
 
 const AddModal = () => {
   // .............Modal Controls..................//
 
-  const [show, setShow] = useState(false)
-  const handleClose = () => setShow(false)
-  const handleShow = () => setShow(true)
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   // .............Modal Controls End..................//
 
   // ...........Validation...............//
 
   const initialValues = {
-    First_name: '',
-    Last_name: '',
-    Phone: '',
-    alternative_no: '',
-    email: '',
-    Address: '',
-    Id_Proof: '',
-    Logo: '',
-    Company_Name: '',
-    Products: '',
-    Company_Lisence_Number: '',
-    Company_Lisence_Id: '',
-    Product_Category: '',
-  }
+    First_name: "",
+    Last_name: "",
+    Phone: "",
+    alternative_no: "",
+    email: "",
+    Address: "",
+    Id_Proof: "",
+    Logo: "",
+    Company_Name: "",
+    Products: "",
+    Company_Lisence_Number: "",
+    Company_Lisence_Id: "",
+    Product_Category: "",
+  };
   const handleReset = (formik) => {
-    formik.resetForm()
-  }
+    formik.resetForm();
+  };
   const formik = useFormik({
     initialValues: initialValues,
     validationSchema: ValidSchema,
     onSubmit: async (values, { resetForm }) => {
       try {
-        create(values)
-        resetForm()
-        handleClose()
+        create(values);
+        resetForm();
+        handleClose();
+        // eslint-disable-next-line no-restricted-globals
         location.reload();
       } catch (error) {
-        console.error(error)
+        console.error(error);
       }
     },
-  })
+  });
   // ...........Validation Ends..........//
 
   // ...............Adding User Here.......................//
@@ -69,8 +71,8 @@ const AddModal = () => {
     Company_Lisence_Id,
     Product_Category,
   }) => {
-    if (First_name == '' && email == '') {
-      console.log('enter all detailes')
+    if (First_name == "" && email == "") {
+      console.log("enter all detailes");
     } else {
       try {
         const user_lic = {
@@ -87,24 +89,27 @@ const AddModal = () => {
           Company_Lisence_Number: Company_Lisence_Number,
           Company_Lisence_Id: Company_Lisence_Id,
           Product_Category: Product_Category,
-        }
+        };
 
-        console.log(formik.values)
+        console.log(formik.values);
 
-        const response = await axios.post(`http://localhost:3003/vendors`, user_lic)
+        const response = await axios.post(
+          `http://localhost:3003/vendors`,
+          user_lic
+        );
 
         if (response.status === 200) {
-          toast.success('User Successfully Created !', {
-            toastId: 'success',
+          toast.success("User Successfully Created !", {
+            toastId: "success",
             position: toast.POSITION.TOP_RIGHT,
             autoClose: 1000,
-          })
+          });
         }
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
     }
-  }
+  };
 
   // ...............Adding User Ends Here.......................//
   return (
@@ -117,15 +122,27 @@ const AddModal = () => {
         <GoPlus /> ADD
       </Button>
 
-      <Modal show={show} backdrop="static" centered onHide={handleClose} animation={false}>
-        <Modal.Header closeButton style={{ backgroundColor: '#40536e', color: 'white' }}>
+      <Modal
+        show={show}
+        backdrop="static"
+        centered
+        onHide={handleClose}
+        animation={false}
+      >
+        <Modal.Header
+          closeButton
+          style={{ backgroundColor: "#40536e", color: "white" }}
+        >
           <Modal.Title>Add Vendor</Modal.Title>
         </Modal.Header>
         <Container>
           <Row>
             <Col lg={12}>
               <Form onSubmit={formik.handleSubmit} action="">
-                <Modal.Body style={{ height: '310px' }} className="overflow-auto">
+                <Modal.Body
+                  style={{ height: "310px" }}
+                  className="overflow-auto"
+                >
                   <Form.Label className="ms-1 ">First name</Form.Label>
                   <Form.Control
                     required
@@ -141,10 +158,10 @@ const AddModal = () => {
                   {formik.errors.First_name && formik.touched.First_name ? (
                     <p
                       style={{
-                        fontSize: '10px',
-                        color: 'red',
-                        marginTop: '1px',
-                        marginLeft: '2%',
+                        fontSize: "10px",
+                        color: "red",
+                        marginTop: "1px",
+                        marginLeft: "2%",
                       }}
                       className="form-error"
                     >
@@ -178,10 +195,10 @@ const AddModal = () => {
                   {formik.errors.number && formik.touched.number ? (
                     <p
                       style={{
-                        fontSize: '10px',
-                        color: 'red',
-                        marginTop: '1px',
-                        marginLeft: '2%',
+                        fontSize: "10px",
+                        color: "red",
+                        marginTop: "1px",
+                        marginLeft: "2%",
                       }}
                       className="form-error"
                     >
@@ -203,10 +220,10 @@ const AddModal = () => {
                   {formik.errors.email && formik.touched.email ? (
                     <p
                       style={{
-                        fontSize: '10px',
-                        color: 'red',
-                        marginTop: '1px',
-                        marginLeft: '2%',
+                        fontSize: "10px",
+                        color: "red",
+                        marginTop: "1px",
+                        marginLeft: "2%",
                       }}
                       className="form-error"
                     >
@@ -228,10 +245,10 @@ const AddModal = () => {
                   {formik.errors.number && formik.touched.number ? (
                     <p
                       style={{
-                        fontSize: '10px',
-                        color: 'red',
-                        marginTop: '1px',
-                        marginLeft: '2%',
+                        fontSize: "10px",
+                        color: "red",
+                        marginTop: "1px",
+                        marginLeft: "2%",
                       }}
                       className="form-error"
                     >
@@ -254,10 +271,10 @@ const AddModal = () => {
                   {formik.errors.text && formik.touched.text ? (
                     <p
                       style={{
-                        fontSize: '10px',
-                        color: 'red',
-                        marginTop: '1px',
-                        marginLeft: '2%',
+                        fontSize: "10px",
+                        color: "red",
+                        marginTop: "1px",
+                        marginLeft: "2%",
                       }}
                       className="form-error"
                     >
@@ -280,10 +297,10 @@ const AddModal = () => {
                   {formik.errors.text && formik.touched.text ? (
                     <p
                       style={{
-                        fontSize: '10px',
-                        color: 'red',
-                        marginTop: '1px',
-                        marginLeft: '2%',
+                        fontSize: "10px",
+                        color: "red",
+                        marginTop: "1px",
+                        marginLeft: "2%",
                       }}
                       className="form-error"
                     >
@@ -306,10 +323,10 @@ const AddModal = () => {
                   {formik.errors.text && formik.touched.text ? (
                     <p
                       style={{
-                        fontSize: '10px',
-                        color: 'red',
-                        marginTop: '1px',
-                        marginLeft: '2%',
+                        fontSize: "10px",
+                        color: "red",
+                        marginTop: "1px",
+                        marginLeft: "2%",
                       }}
                       className="form-error"
                     >
@@ -332,10 +349,10 @@ const AddModal = () => {
                   {formik.errors.text && formik.touched.text ? (
                     <p
                       style={{
-                        fontSize: '10px',
-                        color: 'red',
-                        marginTop: '1px',
-                        marginLeft: '2%',
+                        fontSize: "10px",
+                        color: "red",
+                        marginTop: "1px",
+                        marginLeft: "2%",
                       }}
                       className="form-error"
                     >
@@ -358,10 +375,10 @@ const AddModal = () => {
                   {formik.errors.text && formik.touched.text ? (
                     <p
                       style={{
-                        fontSize: '10px',
-                        color: 'red',
-                        marginTop: '1px',
-                        marginLeft: '2%',
+                        fontSize: "10px",
+                        color: "red",
+                        marginTop: "1px",
+                        marginLeft: "2%",
                       }}
                       className="form-error"
                     >
@@ -369,7 +386,9 @@ const AddModal = () => {
                     </p>
                   ) : null}
 
-                  <Form.Label className="ms-1 mt-1">Company Lisence Number</Form.Label>
+                  <Form.Label className="ms-1 mt-1">
+                    Company Lisence Number
+                  </Form.Label>
                   <Form.Control
                     required
                     type="text"
@@ -384,10 +403,10 @@ const AddModal = () => {
                   {formik.errors.text && formik.touched.text ? (
                     <p
                       style={{
-                        fontSize: '10px',
-                        color: 'red',
-                        marginTop: '1px',
-                        marginLeft: '2%',
+                        fontSize: "10px",
+                        color: "red",
+                        marginTop: "1px",
+                        marginLeft: "2%",
                       }}
                       className="form-error"
                     >
@@ -395,7 +414,9 @@ const AddModal = () => {
                     </p>
                   ) : null}
 
-                  <Form.Label className="ms-1 mt-1">Company Lisence Id</Form.Label>
+                  <Form.Label className="ms-1 mt-1">
+                    Company Lisence Id
+                  </Form.Label>
                   <Form.Control
                     required
                     type="text"
@@ -410,10 +431,10 @@ const AddModal = () => {
                   {formik.errors.text && formik.touched.text ? (
                     <p
                       style={{
-                        fontSize: '10px',
-                        color: 'red',
-                        marginTop: '1px',
-                        marginLeft: '2%',
+                        fontSize: "10px",
+                        color: "red",
+                        marginTop: "1px",
+                        marginLeft: "2%",
                       }}
                       className="form-error"
                     >
@@ -421,7 +442,9 @@ const AddModal = () => {
                     </p>
                   ) : null}
 
-                  <Form.Label className="ms-1 mt-1">Product Category</Form.Label>
+                  <Form.Label className="ms-1 mt-1">
+                    Product Category
+                  </Form.Label>
                   <Form.Control
                     required
                     type="text"
@@ -436,10 +459,10 @@ const AddModal = () => {
                   {formik.errors.text && formik.touched.text ? (
                     <p
                       style={{
-                        fontSize: '10px',
-                        color: 'red',
-                        marginTop: '1px',
-                        marginLeft: '2%',
+                        fontSize: "10px",
+                        color: "red",
+                        marginTop: "1px",
+                        marginLeft: "2%",
                       }}
                       className="form-error"
                     >
@@ -453,8 +476,8 @@ const AddModal = () => {
                     type="reset"
                     variant="danger"
                     onClick={() => {
-                      handleReset(formik)
-                      handleClose()
+                      handleReset(formik);
+                      handleClose();
                     }}
                   >
                     Close
@@ -462,8 +485,10 @@ const AddModal = () => {
                   <Button
                     className="text-white"
                     onClick={() => {
-                      formik.isValid ? create(formik.values) : alert(formik.errors)
-                      console.log(formik.values)
+                      formik.isValid
+                        ? create(formik.values)
+                        : alert(formik.errors);
+                      console.log(formik.values);
                     }}
                     type="submit"
                     variant="success ms-2"
@@ -477,7 +502,7 @@ const AddModal = () => {
         </Container>
       </Modal>
     </>
-  )
-}
+  );
+};
 
-export default AddModal
+export default AddModal;

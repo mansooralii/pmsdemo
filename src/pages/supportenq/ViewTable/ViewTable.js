@@ -35,7 +35,7 @@ const ViewTable = () => {
   const [data, setData] = useState([]);
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch("http://localhost:8000/enquiry");
+      const response = await fetch("http://localhost:3003/SupportEnquiry");
       const json = await response.json();
       setData(json);
       setSearchData(json);
@@ -144,36 +144,7 @@ const ViewTable = () => {
       sortable: true,
     },
 
-    {
-      name: "STATUS",
-      selector: "status",
-      cell: (row) => (
-        <div>
-          <Badge bg={`${row.status === "New" ? "success" : "danger"}`}>
-            {row.status}
-          </Badge>
-        </div>
-      ),
-      sortable: true,
-    },
-    {
-      name: "ACTIONS",
-      cell: (row) => (
-        <div className="d-flex align-items-center justify-content-center">
-          <Button
-            key={`view-${row._id}`}
-            className="icon-btn"
-            onClick={() => {
-              viewModalShow();
-              handleClick(row._id);
-              tableRenderTrue();
-            }}
-          >
-            <GoEye className="text-primary" />
-          </Button>
-        </div>
-      ),
-    },
+    
   ];
 
   const paginationRowsPerPageOptions = [7, 14, 25];

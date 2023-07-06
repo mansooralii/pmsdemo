@@ -35,7 +35,7 @@ const ViewTable = () => {
   const [data, setData] = useState([]);
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch("http://localhost:8000/enquiry");
+      const response = await fetch("http://localhost:3003/Products");
       const json = await response.json();
       setData(json);
       setSearchData(json);
@@ -109,71 +109,47 @@ const ViewTable = () => {
 
   const columns = [
     {
-      name: "ID",
-      selector: "_id",
+      name: "ORG_ID",
+      selector: "org_id",
+      sortable: true,
+    },
+ 
+    {
+      name: "PDT_NAME",
+      selector: "product_name",
       sortable: true,
     },
     {
-      name: "NAME",
-      cell: (row) => (
-        <div>
-          {row.fname} {row.lname}
-        </div>
-      ),
+      name: "PDT-ITEM",
+      selector: "product_item",
       sortable: true,
     },
     {
-      name: "EMAIL",
-      selector: "email",
-      sortable: true,
-    },
-    {
-      name: "PHONE",
-      selector: "mobile",
-      sortable: true,
-    },
-    {
-      name: "ENQ FOR",
-      selector: "enq_for",
+      name: "PDT_IMAGE",
+      selector: "product_image",
       sortable: true,
     },
     ,
     {
-      name: "LOCATION",
-      selector: "loc",
+      name: "PDT_QTY",
+      selector: "product_quantity",
       sortable: true,
     },
 
+   
     {
-      name: "STATUS",
-      selector: "status",
-      cell: (row) => (
-        <div>
-          <Badge bg={`${row.status === "New" ? "success" : "danger"}`}>
-            {row.status}
-          </Badge>
-        </div>
-      ),
+      name: "PDT_PRICE",
+      selector: "product_price",
       sortable: true,
     },
     {
-      name: "ACTIONS",
-      cell: (row) => (
-        <div className="d-flex align-items-center justify-content-center">
-          <Button
-            key={`view-${row._id}`}
-            className="icon-btn"
-            onClick={() => {
-              viewModalShow();
-              handleClick(row._id);
-              tableRenderTrue();
-            }}
-          >
-            <GoEye className="text-primary" />
-          </Button>
-        </div>
-      ),
+      name: "DISCRIPTION",
+      selector: "description",
+      sortable: true,
     },
+   
+    
+   
   ];
 
   const paginationRowsPerPageOptions = [7, 14, 25];
