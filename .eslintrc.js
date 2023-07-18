@@ -6,6 +6,12 @@ module.exports = {
     ecmaFeatures: {
       jsx: true, // Allows for the parsing of JSX
     },
+     
+  extends: ['plugin:prettier/recommended'],
+    plugins: [
+      // Other plugins
+      'prettier',
+    ],
   },
   settings: {
     react: {
